@@ -9,7 +9,7 @@ function buildMetadata(sample) {
     var result = metadata.find(sampleObj => sampleObj.id == sample);
 
     // Use d3 to select the panel with id of `#sample-metadata`
-    var panel = d3.select("#sample-metadata");
+    var panel = d3.select("#metadata");
 
     // Use `.html("") to clear any existing metadata
     panel.html("");
@@ -17,9 +17,7 @@ function buildMetadata(sample) {
     // Inside a loop, you will need to use d3 to append new
     // tags for each key-value in the filtered metadata.
     Object.entries(result).forEach(([key, value]) => {
-      if (["id", "ethnicity", "gender", "age", "location", "bbtype", "wfreq"].includes(key)) {
-        panel.append("h6").text(`${key.toUpperCase()}: ${value}`);
-      }
+      panel.append("h6").text(`${key}: ${value}`);
     });
   });
 }
@@ -41,13 +39,13 @@ function buildCharts(sample) {
 
     // Build a Bubble Chart
     var bubbleData = [{
-      x: otuIds,
-      y: sampleValues,
-      text: otuLabels,
+      x: otuIdsBubble,
+      y: sampleValuesBubble,
+      text: otuLabelsBubble,
       mode: 'markers',
       marker: {
-        size: sampleValues,
-        color: otuIds,
+        size: sampleValuesBubble,
+        color: otuIdsBubble,
         colorscale: 'Earth'
       }
     }];
